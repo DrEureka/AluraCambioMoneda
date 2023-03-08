@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AluraCambioMoneda.iml" filepath="$PROJECT_DIR$/AluraCambioMoneda.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HttpClient/httpclient5-win/src/httpclient5-win1.iml" filepath="$PROJECT_DIR$/HttpClient/httpclient5-win/src/httpclient5-win1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HttpClient/httpclient5-testing/src/main/main.iml" filepath="$PROJECT_DIR$/HttpClient/httpclient5-testing/src/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HttpClient/httpclient5-fluent/src/main/main1.iml" filepath="$PROJECT_DIR$/HttpClient/httpclient5-fluent/src/main/main1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HttpClient/httpclient5-cache/src/main/main2.iml" filepath="$PROJECT_DIR$/HttpClient/httpclient5-cache/src/main/main2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HttpClient/httpclient5/src/main/main3.iml" filepath="$PROJECT_DIR$/HttpClient/httpclient5/src/main/main3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HttpClient/httpclient5-win/src/main/main4.iml" filepath="$PROJECT_DIR$/HttpClient/httpclient5-win/src/main/main4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HttpClient/httpclient5/src/test/test.iml" filepath="$PROJECT_DIR$/HttpClient/httpclient5/src/test/test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HttpClient/httpclient5-testing/src/test/test1.iml" filepath="$PROJECT_DIR$/HttpClient/httpclient5-testing/src/test/test1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HttpClient/httpclient5-cache/src/test/test2.iml" filepath="$PROJECT_DIR$/HttpClient/httpclient5-cache/src/test/test2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HttpClient/httpclient5-fluent/src/test/test3.iml" filepath="$PROJECT_DIR$/HttpClient/httpclient5-fluent/src/test/test3.iml" />
+    </modules>
+  </component>
+</project>
