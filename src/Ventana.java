@@ -49,7 +49,23 @@ public class Ventana extends JFrame implements ActionListener {
         JPanel outputPanel = new JPanel(new GridLayout(1, 2));
         outputPanel.add(resultadoLabel);
         outputPanel.add(resultadoField);
-
+        // Crear menu
+        JMenuBar menuBar = new JMenuBar();
+        JMenu acercaDeMenu = new JMenu("Acerca de");
+        JMenuItem autorMenuItem = new JMenuItem("Autor");
+        autorMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(Ventana.this,
+                        "Autor: [Daniel Ramadan]\n"
+                                + "Fecha: [12/03/23]\n"
+                                + "Github: [DrEureka]\n"
+                                + "Versión: [1.0]");
+            }
+        });
+        acercaDeMenu.add(autorMenuItem);
+        menuBar.add(acercaDeMenu);
+        setJMenuBar(menuBar);
         // Agregar componentes a la ventana
         add(inputPanel, BorderLayout.NORTH);
         add(buttonPanel, BorderLayout.CENTER);
