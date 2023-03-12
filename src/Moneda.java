@@ -1,19 +1,23 @@
 public abstract class Moneda {
-    protected double tasaDeCambio;
-    protected String nombre;
+    private String nombre;
+    private double tasaCambio;
 
-    public Moneda(double tasaDeCambio, String nombre) {
-        this.tasaDeCambio = tasaDeCambio;
+    public Moneda(double tasaCambio, String nombre) {
+        this.tasaCambio = tasaCambio;
         this.nombre = nombre;
     }
-
-    public abstract double convertir(double cantidad, Moneda monedaDestino);
 
     public String getNombre() {
         return nombre;
     }
 
-    public double getTasaDeCambio() {
-        return tasaDeCambio;
+    public double getTasaCambio() {
+        return tasaCambio;
     }
+
+    public double getTasaDeCambio() {
+        return tasaCambio;
+    }
+
+    public abstract double convertir(double cantidad, Moneda monedaDestino);
 }

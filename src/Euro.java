@@ -1,10 +1,9 @@
 public class Euro extends Moneda {
-    public Euro(double tasaDeCambio, String nombre) {
-        super(tasaDeCambio, nombre);
+    public Euro(double tasaCambio, String nombre) {
+        super(tasaCambio, nombre);
     }
 
-    @Override
     public double convertir(double cantidad, Moneda monedaDestino) {
-        return cantidad * getTasaDeCambio() / monedaDestino.getTasaDeCambio();
+        return cantidad * getTasaCambio() / monedaDestino.getTasaCambio();
     }
 }

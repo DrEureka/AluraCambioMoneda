@@ -1,8 +1,26 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
-
-
 public class Conversor {
+    private static Map<String, Moneda> mapaMonedas = new HashMap<>();
+
+    public static void agregarMoneda(Moneda moneda) {
+        mapaMonedas.put(moneda.getNombre(), moneda);
+    }
+
+    public static Moneda obtenerMoneda(String nombreMoneda) {
+        return mapaMonedas.get(nombreMoneda);
+
+
+    }
+    public static Map<String, Moneda> obtenerMapaMonedas() {
+        return mapaMonedas;
+    }
+
+
+
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -10,7 +28,9 @@ public class Conversor {
         Moneda dolar = new Dolar(0.84, "USD");
         Moneda euro = new Euro(1.18, "EUR");
 
-
+        // Agregar las monedas al mapa de monedas
+        agregarMoneda(dolar);
+        agregarMoneda(euro);
 
         // Obtener la cantidad del usuario
         System.out.print("Ingrese la cantidad a convertir: ");
@@ -22,12 +42,8 @@ public class Conversor {
         do {
             System.out.print("Ingrese la moneda origen (EUR o USD): ");
             String monedaOrigenStr = scanner.nextLine().toUpperCase();
-            if (monedaOrigenStr.equals("EUR")) {
-                monedaOrigen = euro;
-            } else if (monedaOrigenStr.equals("USD")) {
-                monedaOrigen = dolar;
-            } else {
-                monedaOrigen = null;
+            monedaOrigen = obtenerMoneda(monedaOrigenStr);
+            if (monedaOrigen == null) {
                 System.out.println("Moneda origen inválida, intente de nuevo.");
             }
         } while (monedaOrigen == null);
@@ -37,12 +53,8 @@ public class Conversor {
         do {
             System.out.print("Ingrese la moneda destino (EUR o USD): ");
             String monedaDestinoStr = scanner.nextLine().toUpperCase();
-            if (monedaDestinoStr.equals("EUR")) {
-                monedaDestino = euro;
-            } else if (monedaDestinoStr.equals("USD")) {
-                monedaDestino = dolar;
-            } else {
-                monedaDestino = null;
+            monedaDestino = obtenerMoneda(monedaDestinoStr);
+            if (monedaDestino == null) {
                 System.out.println("Moneda destino inválida, intente de nuevo.");
             }
         } while (monedaDestino == null);
