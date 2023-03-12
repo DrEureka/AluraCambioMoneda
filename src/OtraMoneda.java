@@ -2,7 +2,7 @@ public class OtraMoneda extends Moneda {
     private String nombre;
 
     public OtraMoneda(String nombre, double tasaDeCambio) {
-        super(tasaDeCambio, nombre);
+        super(tasaDeCambio, nombre, nombre);
         this.nombre = nombre;
     }
 

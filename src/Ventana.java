@@ -2,79 +2,99 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-
-
+import java.util.Map;
+import java.util.HashMap;
 
 public class Ventana extends JFrame implements ActionListener {
-    private JTextField importe;
-    private JComboBox<Moneda> monedaOrigenComboBox;
-    private JComboBox<Moneda> monedaDestinoComboBox;
+
+    private JLabel cantidadLabel, monedaOrigenLabel, monedaDestinoLabel, resultadoLabel;
+    private JTextField cantidadField, resultadoField;
+    private JComboBox<String> monedaOrigenComboBox, monedaDestinoComboBox;
     private JButton convertirButton;
-    private JButton agregarButton;
-    private Conversor conversor;
 
-    public static void main(String[] args) {
-        Conversor conversor = new Conversor();
-        Ventana ventana = new Ventana(conversor);
-    }
+    private Map<String, Moneda> mapaMonedas;
 
-    public Ventana(Conversor conversor) {
-        this.conversor = conversor;
-
-        // Configurar la ventana
-        setTitle("Conversor de Monedas");
+    public Ventana(Map<String, Moneda> mapaMonedas) {
+        this.mapaMonedas = mapaMonedas;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
         setSize(400, 200);
         setLocationRelativeTo(null);
+        setTitle("Conversor de monedas");
 
-        // Crear los componentes de la ventana
-        JLabel importeLabel = new JLabel("Importe a cambiar:");
-        JLabel monedaOrigenLabel = new JLabel("Moneda de origen:");
-        JLabel monedaDestinoLabel = new JLabel("Moneda de destino:");
-        importe = new JTextField(10);
-
-        monedaOrigenComboBox = new JComboBox<>(Conversor.obtenerMapaMonedas().values().toArray(new Moneda[0]));
-        monedaDestinoComboBox = new JComboBox<>(Conversor.obtenerMapaMonedas().values().toArray(new Moneda[0]));
+        // Crear componentes
+        cantidadLabel = new JLabel("Cantidad:");
+        monedaOrigenLabel = new JLabel("Moneda origen:");
+        monedaDestinoLabel = new JLabel("Moneda destino:");
+        resultadoLabel = new JLabel("Resultado:");
+        cantidadField = new JTextField(10);
+        resultadoField = new JTextField(10);
+        resultadoField.setEditable(false);
+        monedaOrigenComboBox = new JComboBox<>(mapaMonedas.keySet().toArray(new String[0]));
+        monedaDestinoComboBox = new JComboBox<>(mapaMonedas.keySet().toArray(new String[0]));
         convertirButton = new JButton("Convertir");
         convertirButton.addActionListener(this);
-        agregarButton = new JButton("Agregar Moneda Personalizada");
-        agregarButton.addActionListener(this);
 
-        // Crear el panel para los componentes
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(4, 2));
-        panel.add(importeLabel);
-        panel.add(importe);
-        panel.add(monedaOrigenLabel);
-        panel.add(monedaOrigenComboBox);
-        panel.add(monedaDestinoLabel);
-        panel.add(monedaDestinoComboBox);
-        panel.add(agregarButton);
-        panel.add(convertirButton);
+        // Crear paneles
+        JPanel inputPanel = new JPanel(new GridLayout(3, 2));
+        inputPanel.add(cantidadLabel);
+        inputPanel.add(cantidadField);
+        inputPanel.add(monedaOrigenLabel);
+        inputPanel.add(monedaOrigenComboBox);
+        inputPanel.add(monedaDestinoLabel);
+        inputPanel.add(monedaDestinoComboBox);
 
-        // Agregar el panel a la ventana
-        add(panel);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(convertirButton);
 
-        // Mostrar la ventana
+        JPanel outputPanel = new JPanel(new GridLayout(1, 2));
+        outputPanel.add(resultadoLabel);
+        outputPanel.add(resultadoField);
+
+        // Agregar componentes a la ventana
+        add(inputPanel, BorderLayout.NORTH);
+        add(buttonPanel, BorderLayout.CENTER);
+        add(outputPanel, BorderLayout.SOUTH);
+
         setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == convertirButton) {
-            // Obtener el importe, la moneda de origen y la moneda de destino seleccionadas por el usuario
-            double cantidad = Double.parseDouble(importe.getText());
-            Moneda monedaOrigen = (Moneda) monedaOrigenComboBox.getSelectedItem();
-            Moneda monedaDestino = (Moneda) monedaDestinoComboBox.getSelectedItem();
+            String cantidadStr = cantidadField.getText();
+            String monedaOrigenStr = (String) monedaOrigenComboBox.getSelectedItem();
+            String monedaDestinoStr = (String) monedaDestinoComboBox.getSelectedItem();
+            Moneda monedaOrigen = mapaMonedas.get(monedaOrigenStr);
+            Moneda monedaDestino = mapaMonedas.get(monedaDestinoStr);
 
-            // Calcular la cantidad convertida y mostrarla en un diálogo de mensaje
-            double resultado = monedaOrigen.convertir(cantidad, monedaDestino);
-            JOptionPane.showMessageDialog(this, "La cantidad convertida es: " + resultado);
-        } else if (e.getSource() == agregarButton) {
-            // Crear una nueva ventana para agregar una moneda personalizada
-            new VentanaAgregarMoneda(conversor);
+            try {
+                double cantidad = Double.parseDouble(cantidadStr);
+                double resultado = monedaOrigen.convertir(cantidad, monedaDestino);
+                resultadoField.setText(String.format("%.2f", resultado));
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "La cantidad ingresada es inválida.");
+            }
         }
+    }
+
+    public static void main(String[] args) {
+        // Crear instancias de las monedas con las tasas de cambio
+        Moneda dolar = new Dolar(0.84, "USD");
+        Moneda euro = new Euro(1.18, "EUR");
+        Moneda otraMoneda = new OtraMoneda("MXN", 0.05);
+        Moneda otraMoneda1 = new OtraMoneda("ARG", 0.15);
+
+
+
+        // Crear mapa de monedas
+        Map<String, Moneda> mapaMonedas = new HashMap<>();
+        mapaMonedas.put("USD", dolar);
+        mapaMonedas.put("EUR", euro);
+        mapaMonedas.put("MXN", otraMoneda);
+        mapaMonedas.put("ARG", otraMoneda1);
+
+
+        // Crear instancia de la GUI
+        Ventana Ventana = new Ventana(mapaMonedas);
     }
 }
